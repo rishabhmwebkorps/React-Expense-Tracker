@@ -1,0 +1,10 @@
+.dashboard {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.chart-container {
+    width: 50%;
+    margin: 20px auto;
+}

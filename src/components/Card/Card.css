@@ -1,0 +1,35 @@
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px;
+    width: 300px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .card-image {
+    width: 50%;
+    height: auto;
+    border-radius: 8px;
+    padding-bottom: 3px;
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .card-details {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .card-detail {
+    background-color:#ffffff;
+    margin: 5px 0;
+    font-size: 37px;
+    padding: 18px;
+    border-radius: 4px;
+  }
+  
