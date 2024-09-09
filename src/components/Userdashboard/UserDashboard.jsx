@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '../Layout/Layout';
 import Card from '../Card/Card';
 import { Line } from 'react-chartjs-2';
-
 import './Userdashboard.css';
 import {
     Chart as ChartJS,
@@ -15,23 +14,36 @@ import {
     Legend
 } from 'chart.js';
 import DetailsList from '../DetailsList/DetailsList';
+
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 export default function UserDashboard() {
-    const cardDetails1 = ['10020 Rupees'];
-    const cardDetails2 = ['1000 Rupees'];
-    const cardDetail3 = ['Rupees 1200']
 
-    const income = '#d4edda';
-    const expense = '#f8d7da';
+    const [incomeData, setIncomeData] = useState([]);
+    const [expenseData, setExpenseData] = useState([]);
+    const [all, setAll] = useState([]);
+   
 
+    useEffect(() => {
+        const income = JSON.parse(localStorage.getItem('incomeData')) || [];
+        const expense = JSON.parse(localStorage.getItem('expenseData')) || [];
+        setIncomeData(income);
+        setExpenseData(expense);
+        setAll(income.concat(expense));
+    }, []);
+
+    const totalIncome = incomeData.reduce((acc, curr) => 
+        acc + parseFloat(curr.salaryAmount), 0);
+
+    const totalExpenses = expenseData.reduce((acc, curr) => 
+        acc + parseFloat(curr.expenseAmount), 0);
 
     const chartData = {
         labels: ['January', 'February', 'March'],
         datasets: [
             {
                 label: 'Income',
-                data: [12000, 15000, 14000],
+                data: incomeData.map(data => parseFloat(data.salaryAmount)) || [0],
                 borderColor: 'rgba(75, 192, 192, 1)',
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 fill: true,
@@ -39,7 +51,7 @@ export default function UserDashboard() {
             },
             {
                 label: 'Expenses',
-                data: [9000, 12000, 11000],
+                data: expenseData.map(data => parseFloat(data.expenseAmount)) || [0],
                 borderColor: 'rgba(255, 99, 132, 1)',
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 fill: true,
@@ -52,7 +64,7 @@ export default function UserDashboard() {
         responsive: true,
         plugins: {
             legend: {
-                position: 'top'
+                position: 'top',
             },
             title: {
                 display: true,
@@ -63,38 +75,45 @@ export default function UserDashboard() {
 
     return (
         <Layout>
-            <div className='dashboard'>
+            <div className="dashboard">
+
                 <Card
                     title="INCOME"
                     image="/investment.svg"
-                    details={cardDetails1}
-                    backgroundColor={income}
-                ></Card>
-
+                    details={[`${totalIncome} Rupees`]}
+                    backgroundColor='#d4edda'
+                />
                 <Card
                     title="EXPENSES"
                     image="/bitcoin.svg"
-                    details={cardDetails2}
-                    backgroundColor={expense}
-                ></Card>
-
+                    details={[`${totalExpenses} Rupees`]}
+                    backgroundColor='#f8d7da'
+                />
                 <div className="chart-container">
                     <Line data={chartData} options={chartOptions} />
                 </div>
             </div>
 
-            <div>
-                <DetailsList
-                    title="FOOD EXPENSES"
-                    image="/income.svg"
-                    details={cardDetails1}
-                    backgroundColor="#e0f7fa"
-                    width="90%"
-                    justifyContent="space-between"
-                    alignItems="center"
-                />
+            <div className="details-list">
+                <h2>All Transactions</h2>
+                {all.length > 0 ? (
+                    all.map((item) => (
+                        <DetailsList
+                            key={item.id}
+                            title={item.incomeSource || item.expenseTitle}
+                            image={item.incomeSource ? "/income.svg" : "/expenses.svg"}
+                            details={`Amount: ${item.salaryAmount || item.expenseAmount}`}
+                            backgroundColor={item.incomeSource ? '#e0f7fa' : '#fce4ec'}
+                            width="90%"
+                            justifyContent="space-between"
+                            Date={item.date}
+                            alignItems="center"
+                        />
+                    ))
+                ) : (
+                    <p>No data available.</p>
+                )}
             </div>
-
         </Layout>
     );
 }

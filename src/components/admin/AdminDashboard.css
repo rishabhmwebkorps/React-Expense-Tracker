@@ -1,0 +1,43 @@
+.admin-dashboard {
+    padding: 20px;
+}
+
+.charts-parent{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.summary-cards {
+    display: flex;
+    justify-content: space-between;
+}
+
+.chart-section, .category-chart-section, .recent-transactions, .all-users {
+    margin-top: 20px;
+}
+.chart-section{
+width: 60%;
+}
+.category-chart-section{
+width: 30%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f2f2f2;
+}
+
+h2 {
+    margin-bottom: 10px;
+}

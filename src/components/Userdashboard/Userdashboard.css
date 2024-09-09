@@ -2,9 +2,17 @@
     display: flex;
     justify-content: space-around;
     padding: 20px;
+    margin-left: 70px;
 }
 
 .chart-container {
     width: 50%;
     margin: 20px auto;
 }
+.details-list h2{
+ padding: 45px;
+}
+.details-list{
+ margin-left: 70px;
+ width: 100%;
+   }

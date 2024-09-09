@@ -14,11 +14,11 @@ const Login = () => {
   };
 
   const handleLogin = () => {
-    const users = getFromLocalStorage('users') || [];
+    const users = getFromLocalStorage('users');
     const user = users.find((user) => user.email === email && user.password === password);
 
     if (!user) {
-      toast.error('Invalid email or password!');
+      toast.error('Wrong email or password!');
       return;
     }
 
@@ -26,13 +26,13 @@ const Login = () => {
     toast.success('Login Successful!');
 
     setTimeout(() => {
-      navigate(user.role === 'admin' ? '/admin-dashboard' : '/userdashboard');
+      navigate(user.role === 'admin' ? '/admin-dashboard' :'/userdashboard');
     }, 2000);
   };
 
   return (
     <>
-      <ToastContainer position="top-center" autoClose={5000} />
+      <ToastContainer position="top-center" autoClose={4000} />
       <div className="login-container">
 
         <div className='img-containers'>
