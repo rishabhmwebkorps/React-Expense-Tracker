@@ -27,7 +27,7 @@ useEffect(()=>{
 const Navbar = () => {
     return (
         <div className="navbar">
-            <button className="help-button">Help & Support</button>
+            <button className="help-button">Help & Supports</button>
         </div>
     );
 };
